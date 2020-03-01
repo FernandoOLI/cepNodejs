@@ -7,12 +7,12 @@ app.get('/', function (req, res, next) {
 			if (err) {
 				req.flash('error', err)
 				res.render('cep/list', {
-					title: 'Cep List',
+					title: 'Listar CEP',
 					data: ''
 				})
 			} else {
 				res.render('cep/list', {
-					title: 'Cep List',
+					title: 'Listar CEP',
 					data: rows
 				})
 			}
@@ -23,14 +23,24 @@ app.get('/search/(:cep)', function (req, res, next) {
 
 	let cepV = req.sanitize('cep').escape().trim();
 	let cep = cepV.replace("-", "");
-	console.log('render not null')
+
+	if (cep.length != 8 && !cep.isInteger && (cep != 'default')) {
+		req.flash('error', 'CEP no formato inválido, favor verificar o valor inserido! CODE: 401')
+		res.render('cep/searchresult', {
+			cep: '',
+			title: 'Buscar CEP',
+			data: ''
+		})
+	}
+
 	req.getConnection(function (error, conn) {
 		conn.query('SELECT * FROM dados_dep WHERE cep = ?',
 			[cep], function (err, rows, fields) {
 				if (err) {
 					req.flash('error', err)
-					res.render('cep/search', {
-						title: 'Cep List',
+					res.render('cep/searchresult', {
+						cep: '',
+						title: 'Buscar CEP',
 						data: ''
 					})
 				} else {
@@ -39,14 +49,14 @@ app.get('/search/(:cep)', function (req, res, next) {
 							req.flash('error', 'CEP não encontrado, favor verificar o valor inserido! CODE: 404')
 						res.render('cep/searchresult', {
 							cep: '',
-							title: 'Cep List',
-							data: rows
+							title: 'Buscar CEP',
+							data: ''
 						})
 					}
 					else {
 						res.render('cep/searchresult', {
 							cep: '',
-							title: 'Cep List',
+							title: 'Buscar CEP',
 							data: rows
 						})
 					}
