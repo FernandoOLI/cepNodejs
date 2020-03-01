@@ -28,17 +28,18 @@
         <th>Bairro</th>
         <th>Estado</th>
         <th>Cidade</th>
+
+        <td>
+            <div style="float:left">
+                <a href='/cep/edit/<%= ceps.cep %>'>Edição</a> &nbsp;
+                <form method="post" action="/cep/delete/<%= ceps.cep%>" style="float:right">
+                    <input type="submit" name="delete" value='Delete'
+                        onClick="return confirm('Você tem certeza que deseja apagar o CEP?')" />
+                    <input type="hidden" name="_method" value="DELETE" />
+                </form>
+            </div>
+        </td>
     </tr>
-    <td>
-        <div style="float:left">
-            <a href='/cep/edit/<%= ceps.cep %>'>Edição</a> &nbsp;
-            <form method="post" action="/cep/delete/<%= ceps.cep%>" style="float:right">
-                <input type="submit" name="delete" value='Delete'
-                    onClick="return confirm('Você tem certeza que deseja apagar o CEP?')" />
-                <input type="hidden" name="_method" value="DELETE" />
-            </form>
-        </div>
-    </td>
 </table>
 
 <%- include ../layouts/footer.ejs %>

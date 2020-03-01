@@ -39,17 +39,18 @@
         <td><%= ceps.bairro %></td>
         <td><%= ceps.estado %></td>
         <td><%= ceps.cidade%></td>
+
+        <td>
+            <div style="float:left">
+                <a href='/cep/edit/<%= ceps.cep %>'>Edição</a> &nbsp;
+                <form method="post" action="/cep/delete/<%= ceps.cep%>" style="float:right">
+                    <input type="submit" name="delete" value='Delete'
+                        onClick="return confirm('Você tem certeza que deseja apagar o CEP?')" />
+                    <input type="hidden" name="_method" value="DELETE" />
+                </form>
+            </div>
+        </td>
     </tr>
-    <td>
-        <div style="float:left">
-            <a href='/cep/edit/<%= ceps.cep %>'>Edição</a> &nbsp;
-            <form method="post" action="/cep/delete/<%= ceps.cep%>" style="float:right">
-                <input type="submit" name="delete" value='Delete'
-                    onClick="return confirm('Você tem certeza que deseja apagar o CEP?')" />
-                <input type="hidden" name="_method" value="DELETE" />
-            </form>
-        </div>
-    </td>
     <% }) %>
     <% } %>
 
