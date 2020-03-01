@@ -1,0 +1,52 @@
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<form action="/cep/search/<%= cep %>" method="get" name="form1">
+    <table width="25%" border="0">
+        <tr>
+            <td>Entre com o valor do CEP para fazer uma busca: </td>
+            <td><input type="text" name="cep" id="cep" value="<%= cep %>" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="Submit" value="Pesquisar" /></td>
+        </tr>
+    </table>
+</form>
+
+<table width='80%' border=0>
+
+    <tr style='text-align:left; background-color:#CCC'>
+        <th>CEP</th>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>Bairro</th>
+        <th>Estado</th>
+        <th>Cidade</th>
+    </tr>
+    <% if (data != null) { %>
+    <% if (data) { %>
+    <% data.forEach(function(user){ %>
+    <tr>
+        <td><%= user.cep %></td>
+        <td><%= user.nome %></td>
+        <td><%= user.endereco %></td>
+        <td><%= user.bairro %></td>
+        <td><%= user.estado %></td>
+        <td><%= user.cidade%></td>
+    </tr>
+    <% }) %>
+    <% } %>
+    <% } %>
+
+
+</table>
+
+<%- include ../layouts/footer.ejs %>

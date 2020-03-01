@@ -1,0 +1,46 @@
+<%- include ../layouts/header.ejs %>
+
+<% if (messages.error) { %>
+<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+<p style="color:green"><%- messages.success %></p>
+<% } %>
+
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>CEP</th>
+		<th>Nome</th>
+		<th>Endereço</th>
+		<th>Bairro</th>
+		<th>Estado</th>
+		<th>Cidade</th>
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(user){ %>
+	<tr>
+		<td><%= user.cep %></td>
+		<td><%= user.nome %></td>
+		<td><%= user.endereco %></td>
+		<td><%= user.bairro %></td>
+		<td><%= user.estado %></td>
+		<td><%= user.cidade%></td>
+		<td>
+			<div style="float:left">
+				<a href='/cep/edit/<%= user.cep %>'>Edição</a> &nbsp;
+				<form method="post" action="/cep/delete/<%= user.cep%>" style="float:right">
+					<input type="submit" name="delete" value='Delete'
+						onClick="return confirm('Você tem certeza que deseja apagar o CEP?')" />
+					<input type="hidden" name="_method" value="DELETE" />
+				</form>
+			</div>
+		</td>
+	</tr>
+	<% }) %>
+	<% } %>
+
+</table>
+<%- include ../layouts/footer.ejs %>

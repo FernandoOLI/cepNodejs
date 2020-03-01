@@ -1,0 +1,9 @@
+{
+    "host": "localhost",
+    "user": "root",
+    "password": "admin",
+    "database": "teste_py",
+    "port": "3306",
+    "hostServer": "127.0.0.1",
+    "portServer": "3000"
+}
