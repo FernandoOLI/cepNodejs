@@ -8,7 +8,7 @@
 <p style="color:green"><%- messages.success %></p>
 <% } %>
 
-<form action="/cep/search/" method="get" name="form1">
+<form action="/cep/search/<%= cep %>" method="get" name="form1">
     <table width="25%" border="0">
         <tr>
             <td>Entre com o valor do CEP para fazer uma busca: </td>
@@ -31,6 +31,19 @@
         <th>Estado</th>
         <th>Cidade</th>
     </tr>
+
+    <% if (data) { %>
+    <% data.forEach(function(user){ %>
+    <tr>
+        <td><%= user.cep %></td>
+        <td><%= user.nome %></td>
+        <td><%= user.endereco %></td>
+        <td><%= user.bairro %></td>
+        <td><%= user.estado %></td>
+        <td><%= user.cidade%></td>
+    </tr>
+    <% }) %>
+    <% } %>
 
 </table>
 

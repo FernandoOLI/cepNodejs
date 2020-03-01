@@ -20,8 +20,10 @@ app.get('/', function (req, res, next) {
 	})
 })
 app.get('/search/(:cep)', function (req, res, next) {
-	console.log('dentro de search cep')
-	if (cep != null) {
+	let cepV = req.sanitize('cep').escape().trim();
+	let cep = cepV.replace("-", "")
+
+	if (cep == null) {
 		console.log('render null')
 		res.render('cep/search', {
 			title: 'Cep List',
@@ -40,7 +42,7 @@ app.get('/search/(:cep)', function (req, res, next) {
 							data: ''
 						})
 					} else {
-						res.render('cep/search', {
+						res.render('cep/searchresult', {
 							title: 'Cep List',
 							data: rows
 						})
@@ -72,6 +74,7 @@ app.get('/search', function (req, res, next) {
 })
 
 function validar(cep) {
+
 	var validador = (cep.replace("-", ""));
 	if (validador.length != 8) {
 		return false;
@@ -101,8 +104,9 @@ app.post('/add', function (req, res, next) {
 	})
 
 	if (!errors || validarBoolean || validarExis) {
+		let cepV = req.sanitize('cep').escape().trim();
 		var user = {
-			cep: req.sanitize('cep').escape().trim(),
+			cep: cepV.replace("-", ""),
 			nome: req.sanitize('nome').escape().trim(),
 			endereco: req.sanitize('endereco').escape().trim(),
 			bairro: req.sanitize('bairro').escape().trim(),
@@ -139,7 +143,7 @@ app.post('/add', function (req, res, next) {
 			})
 		})
 	}
-	else {   
+	else {
 		var error_msg = ''
 
 		if (validar)
