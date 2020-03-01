@@ -8,19 +8,17 @@
 <p style="color:green"><%- messages.success %></p>
 <% } %>
 
-<form action="/cep/search/<%= cep %>" method="get" name="form1">
+<form action="/cep/search/(:cep)" method="get" name="form1">
     <table width="25%" border="0">
         <tr>
             <td>Entre com o valor do CEP para fazer uma busca: </td>
-            <td><input type="text" name="cep" id="cep" value="<%= cep %>" /></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" name="Submit" value="Pesquisar" /></td>
+            <form method="get"  style="float:right">
+                <td><input type="text" name="cep" id="cep" href='/cep/search/<%= cep %>' value="Pesquisar" /></td>
+                <td><input type="submit" name="Submit" value="Pesquisar" action="/cep/search/" <%= cep %> /></td>
+            </form>
         </tr>
     </table>
 </form>
-
 <table width='80%' border=0>
 
     <tr style='text-align:left; background-color:#CCC'>
@@ -33,14 +31,14 @@
     </tr>
 
     <% if (data) { %>
-    <% data.forEach(function(user){ %>
+    <% data.forEach(function(ceps){ %>
     <tr>
-        <td><%= user.cep %></td>
-        <td><%= user.nome %></td>
-        <td><%= user.endereco %></td>
-        <td><%= user.bairro %></td>
-        <td><%= user.estado %></td>
-        <td><%= user.cidade%></td>
+        <td><%= ceps.cep %></td>
+        <td><%= ceps.nome %></td>
+        <td><%= ceps.endereco %></td>
+        <td><%= ceps.bairro %></td>
+        <td><%= ceps.estado %></td>
+        <td><%= ceps.cidade%></td>
     </tr>
     <% }) %>
     <% } %>

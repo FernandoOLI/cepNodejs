@@ -12,11 +12,9 @@
     <table width="25%" border="0">
         <tr>
             <td>Entre com o valor do CEP para fazer uma busca: </td>
-            <td><input type="text" name="cep" id="cep" value="<%= cep %>" /></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" name="Submit" value="Pesquisar" /></td>
+            <form method="get" action="/cep/search/<%= cep%>" style="float:right">
+                <td><input type="text" name="cep" id="cep" href='/cep/search/<%= cep %>'  /></td>
+            </form>
         </tr>
     </table>
 </form>

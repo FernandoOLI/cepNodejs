@@ -20,36 +20,40 @@ app.get('/', function (req, res, next) {
 	})
 })
 app.get('/search/(:cep)', function (req, res, next) {
-	let cepV = req.sanitize('cep').escape().trim();
-	let cep = cepV.replace("-", "")
 
-	if (cep == null) {
-		console.log('render null')
-		res.render('cep/search', {
-			title: 'Cep List',
-			data: null
-		})
-	}
-	else {
-		console.log('render not null')
-		req.getConnection(function (error, conn) {
-			conn.query('SELECT * FROM dados_dep WHERE cep = ?',
-				[req.params.cep], function (err, rows, fields) {
-					if (err) {
-						req.flash('error', err)
-						res.render('cep/search', {
-							title: 'Cep List',
-							data: ''
-						})
-					} else {
+	let cepV = req.sanitize('cep').escape().trim();
+	let cep = cepV.replace("-", "");
+	console.log('render not null')
+	req.getConnection(function (error, conn) {
+		conn.query('SELECT * FROM dados_dep WHERE cep = ?',
+			[cep], function (err, rows, fields) {
+				if (err) {
+					req.flash('error', err)
+					res.render('cep/search', {
+						title: 'Cep List',
+						data: ''
+					})
+				} else {
+					if (rows.length <= 0) {
+						if (cep != 'default')
+							req.flash('error', 'CEP não encontrado, favor verificar o valor inserido! CODE: 404')
 						res.render('cep/searchresult', {
+							cep: '',
 							title: 'Cep List',
 							data: rows
 						})
 					}
-				})
-		})
-	}
+					else {
+						res.render('cep/searchresult', {
+							cep: '',
+							title: 'Cep List',
+							data: rows
+						})
+					}
+				}
+			})
+	})
+
 })
 
 app.get('/add', function (req, res, next) {
@@ -65,13 +69,6 @@ app.get('/add', function (req, res, next) {
 	})
 })
 
-app.get('/search', function (req, res, next) {
-
-	res.render('cep/search', {
-		title: 'Inserir CEP',
-		cep: ''
-	})
-})
 
 function validar(cep) {
 
@@ -128,7 +125,7 @@ app.post('/add', function (req, res, next) {
 						cidade: user.cidade
 					})
 				} else {
-					req.flash('success', 'Data added successfully!')
+					req.flash('success', 'CEP adicionado com sucesso!')
 
 					res.render('cep/add', {
 						title: 'Inserir CEP',
