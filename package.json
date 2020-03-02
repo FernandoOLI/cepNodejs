@@ -13,16 +13,16 @@
   ],
   "author": "Fernando Oliveira Pereira",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.6",
-    "express": "^4.15.3",
-    "express-flash": "0.0.2",
-    "express-myconnection": "^1.0.4",
-    "express-session": "^1.15.3",
-    "express-validator": "^3.2.0",
-    "is-valid-zipcode": "^1.0.3",
-    "method-override": "^2.3.9",
-    "mysql": "^2.13.0"
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "express-flash": "latest",
+    "express-myconnection": "latest",
+    "express-session": "latest",
+    "express-validator": "latest",
+    "is-valid-zipcode": "latest",
+    "method-override": "latest",
+    "mysql": "latest"
   }
 }
